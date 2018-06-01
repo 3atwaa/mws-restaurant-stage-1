@@ -1,4 +1,4 @@
-const cacheName = 'static-restaurant-reviews-v4';
+const cacheName = 'static-restaurant-reviews-v5';
 const indexURL = 'https://atwamahmoud.github.io/mws-restaurant-stage-1/';
 //Caching data on install
 self.addEventListener('install', event => {
