@@ -95,7 +95,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
     
     const label = (timeStr === "Closed") ? 
       `On ${key} The restaurant is closed` : 
-      `On ${key} from ${str.replace(/-/gi, 'to').replace(/,/gi, ' And From')}`;
+      `On ${key} from ${timeStr.replace(/-/gi, 'to').replace(/,/gi, ' And From')}`;
     
     row.setAttribute('aria-label', label);
 
