@@ -15,6 +15,8 @@ self.addEventListener('install', event => {
                 '/js/restaurant_info.js',
                 '/data/restaurants.json'
             ]);
+        }).catch(err => {
+            console.log(err);
         })
     );
 });
@@ -29,6 +31,8 @@ self.addEventListener('activate', event => {
                     if(key != cacheName) caches.delete(key);
                 })
             )
+        }).catch(err => {
+            console.log(err);
         })
     )
 });
@@ -41,22 +45,26 @@ self.addEventListener('fetch', event => {
         event.respondWith(
             caches.open(cacheName).then(cache => {
                 return cache.match('/index.html').then(resp => resp);
+            }).catch(err => {
+                console.log(err);
             })
         )
     else if (url.endsWith('restaurant.html?id=', event.request.url.length-1))
         event.respondWith(
             caches.open(cacheName).then(cache => {
                 return cache.match('/restaurant.html').then(resp => resp);
+            }).catch(err => {
+                console.log(err);
             })
         )
     else if(!url.startsWith('https://maps.googleapis.com'))
         event.respondWith(
             caches.open(cacheName).then(cache => {
                 return cache.match(event.request.url).then(resp => {
-                    return resp || fetch(event.request.url).catch(err => {
-                       console.log(err);
-                    });
-                });
+                    return resp || fetch(event.request.url)
+                }).catch(err => {
+                    console.log(err);
+                })
             })
         )
 });
