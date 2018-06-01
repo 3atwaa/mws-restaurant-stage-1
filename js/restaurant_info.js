@@ -92,9 +92,11 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
     row.appendChild(time);
 
     row.setAttribute('tabindex', '0');
-    const i = (timeStr.length < 19) ? 10 : 11;
+    
     const label = (timeStr === "Closed") ? 
-      `On ${key} The restaurant is closed` : `On ${key} from ${timeStr.slice(0, 8)} to ${timeStr.slice(i, 19)}`;
+      `On ${key} The restaurant is closed` : 
+      `On ${key} from ${str.replace(/-/gi, 'to').replace(/,/gi, ' And From')}`;
+    
     row.setAttribute('aria-label', label);
 
     hours.appendChild(row);
