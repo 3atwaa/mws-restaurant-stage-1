@@ -5,15 +5,13 @@ self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(cacheName).then(cache => {
            return cache.addAll([
-                './index.html',
-                './restaurant.html',
-                './css/styles_tablet.css',
-                './css/styles_restaurant_small.css',
-                './css/styles.css',
-                './js/main.js',
-                './js/dbhelper.js',
-                './js/restaurant_info.js',
-                './data/restaurants.json'
+                'https://atwamahmoud.github.io/mws-restaurant-stage-1/index.html',
+                'https://atwamahmoud.github.io/mws-restaurant-stage-1/restaurant.html',
+                'https://atwamahmoud.github.io/mws-restaurant-stage-1/css/styles.css',
+                'https://atwamahmoud.github.io/mws-restaurant-stage-1/js/main.js',
+                'https://atwamahmoud.github.io/mws-restaurant-stage-1/js/dbhelper.js',
+                'https://atwamahmoud.github.io/mws-restaurant-stage-1/js/restaurant_info.js',
+                'https://atwamahmoud.github.io/mws-restaurant-stage-1/data/restaurants.json'
             ]);
         }).catch(err => {
             console.log(err);
