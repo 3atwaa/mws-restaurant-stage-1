@@ -42,7 +42,7 @@ self.addEventListener('fetch', event => {
     if (url === indexURL || url === indexURL.slice(0, indexURL.length-1) || url === indexURL + 'index.html')
         event.respondWith(
             caches.open(cacheName).then(cache => {
-                return cache.match('/index.html').then(resp => resp);
+                return cache.match('https://atwamahmoud.github.io/mws-restaurant-stage-1/index.html').then(resp => resp);
             }).catch(err => {
                 console.log(err);
             })
@@ -50,7 +50,7 @@ self.addEventListener('fetch', event => {
     else if (url.endsWith('restaurant.html?id=', event.request.url.length-1))
         event.respondWith(
             caches.open(cacheName).then(cache => {
-                return cache.match('/restaurant.html').then(resp => resp);
+                return cache.match('https://atwamahmoud.github.io/mws-restaurant-stage-1/restaurant.html').then(resp => resp);
             }).catch(err => {
                 console.log(err);
             })
