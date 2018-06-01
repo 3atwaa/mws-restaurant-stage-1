@@ -51,16 +51,20 @@ fetchRestaurantFromURL = (callback) => {
 fillRestaurantHTML = (restaurant = self.restaurant) => {
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
+  // name.setAttribute('aria-label', restaurant.name);
 
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
-
+  address.setAttribute('aria-label', 'Address: ' + restaurant.address);
+  
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img'
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.setAttribute('alt', 'A picture of ' + restaurant.name + ' restaurant.');
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
+  cuisine.setAttribute('aria-label', 'Cuisine type: ' + restaurant.cuisine_type);
 
   // fill operating hours
   if (restaurant.operating_hours) {
@@ -78,13 +82,19 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
   for (let key in operatingHours) {
     const row = document.createElement('tr');
 
+    const timeStr = operatingHours[key];
     const day = document.createElement('td');
     day.innerHTML = key;
     row.appendChild(day);
 
     const time = document.createElement('td');
-    time.innerHTML = operatingHours[key];
+    time.innerHTML = timeStr;
     row.appendChild(time);
+
+    row.setAttribute('tabindex', '0');
+    const label = (timeStr === "Closed") ? 
+      `On ${key} The restaurant is closed` : `On ${key} from ${timeStr.slice(0, 8)} to ${timeStr.slice(11, 19)}`;
+    row.setAttribute('aria-label', label);
 
     hours.appendChild(row);
   }
@@ -98,6 +108,7 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   const title = document.createElement('h2');
   title.innerHTML = 'Reviews';
   container.appendChild(title);
+  title.setAttribute('tabindex', '0');
 
   if (!reviews) {
     const noReviews = document.createElement('p');
@@ -117,21 +128,44 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
  */
 createReviewHTML = (review) => {
   const li = document.createElement('li');
-  const name = document.createElement('p');
+  const nameAndDate = document.createElement('p')
+  const name = document.createElement('span');
+
+  nameAndDate.classList.add("review-name-date");
+  name.classList.add('review-customer-name');
+
   name.innerHTML = review.name;
-  li.appendChild(name);
+  nameAndDate.appendChild(name);
 
-  const date = document.createElement('p');
+  const date = document.createElement('span');
+  
+  date.classList.add("review-date");
+
   date.innerHTML = review.date;
-  li.appendChild(date);
+  nameAndDate.appendChild(date);
+  li.appendChild(nameAndDate);
 
-  const rating = document.createElement('p');
+  const ratingContainer = document.createElement('p');
+  const rating = document.createElement('span');
+
+  rating.classList.add("review-rate");
+  ratingContainer.classList.add("review-rate-contianer");
+
   rating.innerHTML = `Rating: ${review.rating}`;
-  li.appendChild(rating);
+  li.appendChild(ratingContainer);
+  ratingContainer.appendChild(rating);
 
   const comments = document.createElement('p');
+  comments.classList.add("review-comments")
   comments.innerHTML = review.comments;
   li.appendChild(comments);
+
+  li.setAttribute('tabindex', '0');
+  li.setAttribute('aria-label', 'Customer name: ' + review.name);
+  rating.setAttribute('tabindex', '0');
+  date.setAttribute('tabindex', '0');
+  date.setAttribute('aria-label', 'On ' + review.date);
+  comments.setAttribute('tabindex', '0');
 
   return li;
 }
@@ -143,6 +177,8 @@ fillBreadcrumb = (restaurant=self.restaurant) => {
   const breadcrumb = document.getElementById('breadcrumb');
   const li = document.createElement('li');
   li.innerHTML = restaurant.name;
+  li.setAttribute('tabindex', '0');
+  li.setAttribute('aria-label', 'Slash ' + restaurant.name);
   breadcrumb.appendChild(li);
 }
 

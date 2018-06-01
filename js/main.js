@@ -8,9 +8,17 @@ var markers = []
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
+  registerSW();
   fetchNeighborhoods();
   fetchCuisines();
 });
+/**
+ * Register a service worker as sw.js with a default scope level of '/'
+ */
+registerSW = () => {
+  if(navigator.serviceWorker) 
+    navigator.serviceWorker.register('sw.js');
+}
 
 /**
  * Fetch all neighborhoods and set their HTML.
@@ -137,30 +145,48 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
+  const figure = document.createElement('figure');
+  const figCaption = document.createElement('figcaption');
+
+  figure.className = "restaurant-figure";
+  figCaption.className = "restaurant-figure-caption"
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  li.append(image);
+  image.setAttribute('alt', 'A picture of ' + restaurant.name + ' restaurant.');
+  figure.append(image);
 
   const name = document.createElement('h1');
   name.innerHTML = restaurant.name;
-  li.append(name);
+  figCaption.append(name);
 
   const neighborhood = document.createElement('p');
   neighborhood.innerHTML = restaurant.neighborhood;
-  li.append(neighborhood);
+  figCaption.append(neighborhood);
 
   const address = document.createElement('p');
   address.innerHTML = restaurant.address;
-  li.append(address);
+  figCaption.append(address);
 
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
-  li.append(more)
+  figCaption.append(more);
 
-  return li
+  figure.append(figCaption);
+  li.appendChild(figure);
+
+  li.setAttribute('tabindex', '0');
+  li.setAttribute('aria-label', restaurant.name);
+  image.setAttribute('tabindex', '0');
+  address.setAttribute('tabindex', '0');
+  neighborhood.setAttribute('tabindex', '0');
+
+  neighborhood.setAttribute('aria-label', 'Neighborhood: ' + restaurant.neighborhood);
+  address.setAttribute('aria-label', 'Address: ' + restaurant.address);
+
+  return li;
 }
 
 /**
@@ -171,7 +197,7 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     // Add marker to the map
     const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);
     google.maps.event.addListener(marker, 'click', () => {
-      window.location.href = marker.url
+      window.location.href = marker.url;
     });
     self.markers.push(marker);
   });
