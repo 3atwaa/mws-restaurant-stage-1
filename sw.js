@@ -1,5 +1,5 @@
 const cacheName = 'static-restaurant-reviews-v5';
-const indexURL = 'http://localhost:8000/';
+const indexURL = 'https://atwamahmoud.github.io/mws-restaurant-stage-1/';
 //Caching data on install
 self.addEventListener('install', event => {
     event.waitUntil(
@@ -37,7 +37,7 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
 
     const url = event.request.url;
-    if (url === indexURL || url === indexURL.slice(0, indexURL.length-1))
+    if (url === indexURL || url === indexURL.slice(0, indexURL.length-1) || url === indexURL + 'index.html')
         event.respondWith(
             caches.open(cacheName).then(cache => {
                 return cache.match('/index.html').then(resp => resp);
