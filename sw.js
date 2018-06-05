@@ -1,10 +1,12 @@
-const cacheName = 'static-restaurant-reviews-v6';
+//Note::This code is inspired from Udacity's Offline first mobile apps course code.
+
+const cacheName = 'restaurant-reviews-v7';
 const indexURL = 'https://atwamahmoud.github.io/mws-restaurant-stage-1/';
 //Caching data on install
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(cacheName).then(cache => {
-           return cache.addAll([
+           return cache.addAll([//returns a promise
                 'https://atwamahmoud.github.io/mws-restaurant-stage-1/index.html',
                 'https://atwamahmoud.github.io/mws-restaurant-stage-1/restaurant.html',
                 'https://atwamahmoud.github.io/mws-restaurant-stage-1/css/styles.css',
@@ -24,7 +26,7 @@ self.addEventListener('install', event => {
 self.addEventListener('activate', event => {
     event.waitUntil(
         caches.keys().then(keys => {
-            return Promise.all(
+            return Promise.all(//Since waitUntill expects a promise to be passed.
                 keys.map(key => {
                     if(key != cacheName) caches.delete(key);
                 })
