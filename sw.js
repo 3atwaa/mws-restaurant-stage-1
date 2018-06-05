@@ -1,6 +1,6 @@
 //Note::This code is inspired from Udacity's Offline first mobile apps course code.
 
-const cacheName = 'restaurant-reviews-v50';
+const cacheName = 'restaurant-reviews-v60';
 let itemsToBeCached = [
     './index.html',
     './restaurant.html',

@@ -81,7 +81,8 @@ nav h1 a {
     background-color: #eee;
     font-size: 1.5rem;
     margin: 0 1% 0 0;/*TRBL*/
-    width:49%;
+    width: 48%;
+    box-sizing: border-box;
 }
 
 /* Display list items side by side */
