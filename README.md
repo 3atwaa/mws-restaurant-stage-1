@@ -1,3 +1,4 @@
+### Not all of this code is mine, A large portion of it was already given. In a matter of fact, I only enhanced accessibility, responsiveness & cache management.
 # Mobile Web Specialist Certification Course
 ---
 #### _Three Stage Course Material Project - Restaurant Reviews_
