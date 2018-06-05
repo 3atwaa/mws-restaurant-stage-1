@@ -1,4 +1,4 @@
-//Note::This code is inspired from Udacity's Offline first mobile apps course code.
+//Note::This code is inspired from Udacity's Offline first mobile apps course code...
 
 const cacheName = 'restaurant-reviews-v60';
 let itemsToBeCached = [

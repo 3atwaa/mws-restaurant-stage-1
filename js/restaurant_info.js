@@ -1,10 +1,19 @@
 let restaurant;
 var map;
 
+
+/**
+ * Registers service worker...
+ */
+registerSW = () => {
+  if(navigator.serviceWorker) 
+    navigator.serviceWorker.register('sw.js');
+}
 /**
  * Initialize Google map, called from HTML.
  */
 window.initMap = () => {
+  registerSW();
   fetchRestaurantFromURL((error, restaurant) => {
     if (error) { // Got an error!
       console.error(error);
