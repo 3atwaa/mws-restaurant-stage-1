@@ -17,9 +17,8 @@
     <!-- Beginning nav -->
     <nav>
       <h1><a href="./">Restaurant Reviews</a></h1>
-    
       <!-- Beginning breadcrumb -->
-      <ul id="breadcrumb">
+      <ul aria-label="Breadcrumb" id="breadcrumb">
         <li><a href="./">Home</a></li>
       </ul>
     
@@ -33,14 +32,14 @@
   <main id="maincontent">
     <!-- Beginning map -->
     <section id="map-container">
-      <div id="map" aria-label="Google map" tabindex="0"></div>
+      <div id="map" aria-role="application" aria-label="Google map" tabindex="0"></div>
     </section>
     <!-- End map -->
     <!-- Beginning restaurant & reviews-->    
     <section class="restaurant-main-container">
       <!-- Beginning restaurant -->
       <section id="restaurant-container">
-        <h1 tabindex="0" id="restaurant-name"></h1>
+        <h2 tabindex="0" id="restaurant-name"></h2>
         <img tabindex="0" id="restaurant-img">
         <p tabindex="0" id="restaurant-cuisine"></p>
         <p tabindex="0" id="restaurant-address"></p>
@@ -59,7 +58,7 @@
 
   <!-- Beginning footer -->
   <footer id="footer">
-    Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+    Copyright (c) 2017 <a href="./"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer>
   <!-- End footer -->
 
